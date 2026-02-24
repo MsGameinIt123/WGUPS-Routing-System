@@ -11,6 +11,7 @@ from distance import DistanceTable
 from datetime import timedelta
 
 def load_packages(filename, hash_table):
+    """Loads package data from CSV into the hash table. Initializes package attributes and flags delayed shipments."""
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile)
         next(reader) #Skip header row
@@ -56,6 +57,7 @@ def load_packages(filename, hash_table):
 #At each step, the truck selects the closest undelivered package based on the distance table.
 #Travel time is calculated using an average speed of 18 mph, and package status is updated upon delivery.        
 def deliver_packages(truck, distance_table):
+    """Delivers all packages assigned to a truck. Uses a nearest-neighbour routing strategy while prioritizing deadline-sensitive packages. Updates mileage, time, and delivery status."""
     while truck.packages:
         nearest_package = None
         shortest_distance = float('inf')
@@ -133,7 +135,7 @@ def return_to_hub(truck, distance_table):
     truck.current_location = "Western Governors University"
     
 def get_package_status_at_time(package, query_time):
-    
+    """Returns the delivery status of a package at a specific time. Handles delayed arrivals, en route status, and completed deliveries."""
     #delayed flight packages
     if hasattr(package, "delayed_until"):
         if query_time < package.delayed_until:
@@ -165,7 +167,7 @@ def get_address_at_time(package, query_time):
     return package.address
 
 def deliver_priority_package(truck, package, distance_table):
-    #Deliver a specific priority package immediately
+    """Immediately delivers a priority package. Used to ensure deadline-critical packages are delivered before time constraints."""
     distance = distance_table.get_distance(
         truck.current_location,
         package.address
@@ -264,11 +266,6 @@ def main():
     deliver_packages(truck3, distance_table)
     return_to_hub(truck3, distance_table)
     
-    """ pkg6 = package_table.lookup(6)
-    print("\nDEBUG:")
-    print("Package 6 delivered at:", pkg6.delivery_time)
-    print("Deadline:", pkg6.deadline) """
-    
     #Calculate total mileage
     total_mileage = truck1.mileage + truck2.mileage + truck3.mileage
     
@@ -345,4 +342,5 @@ def main():
             print("Invalid choice.")
 
 if __name__ == "__main__":
+
     main()
