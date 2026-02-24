@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 class Truck:
-    """Represents a delivery truck and tracks route progress."""
+    """Represents a delivery truck. Tracks assigned packages, current location, mileage traveled, and delivery time progression."""
     def __init__(self, truck_id):
         self.truck_id = truck_id
         self.packages = []
@@ -9,3 +9,4 @@ class Truck:
         self.current_location = "Western Governors University"
 
         self.current_time = timedelta(hours=8)
+
