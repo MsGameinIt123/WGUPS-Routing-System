@@ -1,4 +1,5 @@
 class HashTable:
+    """Custom hash table implementation for storing packages. Provides fast insertion and lookup using package ID keys."""
     def __init__(self, size=40):
         self.size = size
         self.table = [[] for _ in range(size)]
@@ -34,4 +35,5 @@ class HashTable:
             if pair[0] == key:
                 bucket.remove(pair)
                 return True
+
         return False
