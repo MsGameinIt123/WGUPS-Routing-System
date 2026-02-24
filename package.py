@@ -1,4 +1,5 @@
 class Package:
+    """Represents a delivery package. Stores delivery details and tracks status changes throughout the delivery simulation."""
     def __init__(self, package_id, address, city, zip_code, deadline, weight, notes=""):
         self.package_id = package_id
         self.address = address
@@ -19,4 +20,5 @@ class Package:
                 f"{self.address}, {self.city} {self.zip_code} | "
                 f"Deadline: {self.deadline} | "
                 f"Status: {self.status} | "
+
                 f"Delivered at: {self.delivery_time}")
