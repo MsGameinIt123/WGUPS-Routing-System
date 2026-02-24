@@ -2,6 +2,7 @@ import csv
 import re
 
 class DistanceTable:
+    """Stores and retrieves distances between delivery locations. Provides efficient lookup for route optimization."""
     def __init__(self):
         self.addresses = []
         self.distances = []
@@ -78,5 +79,6 @@ class DistanceTable:
         # If empty, check opposite direction
         if distance == "":
             distance = self.distances[index2][index1]
+
 
         return float(distance)
